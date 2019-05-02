@@ -1,5 +1,5 @@
 const wrap = (line, maxLen) => {
-  if (!line) {
+  if (typeof line !== 'string') {
     return '';
   } else if (line[maxLen] === undefined) {
     return line;
@@ -9,9 +9,10 @@ const wrap = (line, maxLen) => {
       cnt++;
     }
     return (
-      line.slice(0, maxLen - cnt) +
+      // have to add 1 because slice 2nd param is up to - ie. not including
+      line.slice(0, maxLen - cnt + 1) +
       '\n' +
-      wrap(line.slice(maxLen - cnt), maxLen)
+      wrap(line.slice(maxLen - cnt + 1), maxLen)
     );
   }
 };
@@ -19,9 +20,3 @@ const wrap = (line, maxLen) => {
 // console.log(wrap('hello there', 6));
 
 module.exports = wrap;
-
-// if (line[maxLen] === ' ') {
-//     newStr += `${line.slice(0, maxLen)}\n`;
-//   } else {
-//     newStr += `${line.slice(0, maxLen)}\n`;
-//   }
